@@ -1,0 +1,73 @@
+	<!--这是swiper+jquery调接口展示的轮播图 需要引入    swiper js css文件，   还有jquery文件-->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="swiper.min.css" />
+		<script src="swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.swiper-container {
+				width: 600px;
+				height: 300px;
+			}
+			/*初始样式*/
+		</style>
+	</head>
+
+	<body>
+		<div class="swiper-container">
+			<!--    轮播图个数，要几个添加几个swiper-slide   -->
+			<div class="swiper-wrapper">
+				<!--<div class="swiper-slide">Slide 1</div>
+				<div class="swiper-slide">Slide 2</div>
+				<div class="swiper-slide">Slide 3</div>-->
+			</div>
+			<!-- 如果需要分页器 -->
+			<div class="swiper-pagination"></div>
+			<!-- 如果需要导航按钮 -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+		<script type="text/javascript">
+			$.ajax({
+				url: 'http://net-music.penkuoer.com/banner',
+				dataType: 'json',
+				success: function(data) {
+					var str = '';
+					var data = data.banners;
+					for(var i = 0; i < data.length; i++) {
+						console.log(data[i].imageUrl)
+						str +=
+							`
+						<div class="swiper-slide">
+							<img src='${data[i].imageUrl}'/>
+						</div>
+					`
+					}
+					$('.swiper-wrapper').html(str);
+					var mySwiper = new Swiper('.swiper-container', {
+						direction: 'horizontal', // 水平切换选项
+						loop: true, // 循环模式选项
+						autoplay: true, //自动切换时间，单位ms    自动切换	
+
+						// 如果需要分页器
+						pagination: {
+							el: '.swiper-pagination',
+							hideOnClick: true, //点一下消失 点一下显示
+							clickable: true, //圆点可点击切换
+						},
+						// 如果需要前进后退按钮
+						navigation: {
+							nextEl: '.swiper-button-next',
+							prevEl: '.swiper-button-prev',
+						},
+					})
+				}
+			})
+		</script>
+	</body>
+
+</html>
