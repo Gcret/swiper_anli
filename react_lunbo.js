@@ -1,3 +1,4 @@
+import React,{Component} from 'react';
 import {Carousel} from 'antd';
 import axios from 'axios';
 export default class Index extends Component{
